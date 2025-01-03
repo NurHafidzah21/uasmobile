@@ -1,109 +1,90 @@
 import 'package:flutter/material.dart';
+import 'satu.dart';
+import 'dua.dart';
+import 'tiga.dart';
+import 'empat.dart';
+import 'lima.dart';
 
-class LayarLima extends StatelessWidget {
-  const LayarLima({super.key});
-  
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+  @override
+  MyAppState createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  int idx = 0; //index yang aktif
+
+  case2(int idx) {
+    switch (idx) {
+      case 0: {return const LayarSatu();}
+      case 1: {return const LayarDua();}
+      case 2: {return const LayarTiga();}
+      case 3: {return const LayarEmpat();}
+      case 4: {return const LayarLima();}
+    }
+  }
+
+  //event saat button di-tap
+  void gantiItem(int index) {
+    setState(() {
+      idx = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Produk',
-      home: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
+    home: Scaffold(
+      appBar: AppBar(
+        title: const Text("My Smart Home",
+        style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.blue),
+        body: case2(idx),
+        drawer: Drawer(
+          child: ListView(
             children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                child: Text('Produk', style: TextStyle(color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold)),
+              const DrawerHeader(child: Text("My Smart Home", style: TextStyle(color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold))),
+              ListTile(
+                title: const Text("Home"),
+                onTap: () {
+                  gantiItem(0);
+                }
               ),
-              //suhu
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: 300.0,
-                   decoration: BoxDecoration(
-                    color:Colors.blue,
-                    borderRadius: BorderRadius.circular(8)
-                  ),
-                  child: Column(
-                    children: [
-                      //judul
-                      const Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: 
-                        Align(
-                          child: Text('Alat Deteksi Suhu',
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                        ),
-                      ),
-                      //image
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: 
-                        Align(
-                          child: Image.asset('assets/images/suhu.jpeg', height: 150),
-                        ),
-                      ),
-                      //sub judul
-                      const Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: 
-                        Align(
-                          child: Text("Rp. 4.500.000",
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(color: Colors.white, fontSize: 16)),
-                        ),
-                      )
-                    ],
-                  )
-                ),
+              ListTile(
+                title: const Text("Produk"),
+                onTap: () {
+                  gantiItem(4);
+                }
               ),
-              //kebakaran & gas
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: 300.0,
-                   decoration: BoxDecoration(
-                    color:Colors.blue,
-                    borderRadius: BorderRadius.circular(8)
-                  ),
-                  child: Column(
-                    children: [
-                      //judul
-                      const Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: 
-                        Align(
-                          child: Text('Alat Deteksi Kebakaran & Gas',
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                        ),
-                      ),
-                      //image
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: 
-                        Align(
-                          child: Image.asset('assets/images/gas.jpeg', height: 150),
-                        ),
-                      ),
-                      //sub judul
-                      const Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: 
-                        Align(
-                          child: Text("Rp. 8.700.000",
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(color: Colors.white, fontSize: 16)),
-                        ),
-                      )
-                    ],
-                  )
-                ),
+              ListTile(
+                title: const Text("Cara Penggunaan"),
+                onTap: () {
+                  gantiItem(1);
+                }
               ),
+              ListTile(
+                title: const Text("Manfaat"),
+                onTap: () {
+                  gantiItem(2);
+                }
+              ),
+              ListTile(
+                title: const Text("Kontak Kami"),
+                onTap: () {
+                  gantiItem(3);
+                }
+              )
             ],
-          )   
-        ),
-      ),
+          )
+        )
+      )
     );
   }
 }
